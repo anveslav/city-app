@@ -1,0 +1,10 @@
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div><p class="navbar-brand">City App</p></div>
+    <ul class="navbar-nav navbar-collapse justify-content-end">
+      <li>
+        <a *ngIf="isLoggedIn" class="nav-link" href="/logout" (click)=handleLogout()>Logout</a>
+      </li>
+    </ul>
+  </nav>
+</header>

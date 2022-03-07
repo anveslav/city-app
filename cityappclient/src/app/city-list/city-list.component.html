@@ -1,0 +1,52 @@
+<app-menu></app-menu>
+<h3 class="text-center mt-5 mb-5">CITY LIST</h3>
+<div class="form-center">
+  <form id="form" role="search">
+    <input type="search" id="query" name="q"
+           placeholder="Search..." [(ngModel)]="searchText">
+    <button (click)="getDataSearchedByName()">Search</button>
+  </form>
+</div>
+<div class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Photo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor=' let city of cities
+            | paginate
+              : {
+                  itemsPerPage: limit,
+                  currentPage: page,
+                  totalItems: totalItems
+                };
+       let i = index'>
+      <ng-container *ngIf= "editable">
+        <tr *ngIf="selected === i && editable">
+          <td><input [(ngModel)]="city.name"></td>
+          <td><input [(ngModel)]="city.photo"></td>
+          <td><button class="btn btn-primary" (click)="editCity(city)">Edit</button></td>
+        </tr>
+        <tr *ngIf="selected !== i" (click)="selected = i">
+          <td>{{city.name}}</td>
+          <td><img [src]="city.photo"></td>
+        </tr>
+      </ng-container>
+      <ng-container *ngIf= "!editable">
+      <tr>
+        <td>{{city.name}}</td>
+        <td><img [src]="city.photo"></td>
+      </tr>
+      </ng-container>
+    </ng-container>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+      (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+  </div>
+</div>

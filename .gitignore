@@ -1,0 +1,77 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+cityappclient/dist
+cityappclient/tmp
+cityappclient/out-tsc
+cityappclient/bazel-out
+
+# Node
+cityappclient/node_modules
+cityappclient/npm-debug.log
+cityappclient/yarn-error.log
+
+# IDEs and editors
+cityappclient/.idea/
+cityappclient/.project
+cityappclient/.classpath
+cityappclient/.c9/
+cityappclient/*.launch
+cityappclient/.settings/
+cityappclient/*.sublime-workspace
+
+# Visual Studio Code
+cityappclient/.vscode/*
+!cityappclient/.vscode/settings.json
+!cityappclient/.vscode/tasks.json
+!cityappclient/.vscode/launch.json
+!cityappclient/.vscode/extensions.json
+cityappclient/.history/*
+
+# Miscellaneous
+cityappclient/.angular/cache
+cityappclient/.sass-cache/
+cityappclient/connect.lock
+cityappclient/coverage
+cityappclient/libpeerconnection.log
+cityappclient/testem.log
+cityappclient/typings
+
+# System files
+cityappclient/.DS_Store
+cityappclient/Thumbs.db
