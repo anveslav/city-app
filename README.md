@@ -1,6 +1,7 @@
 BACKEND API
 http://localhost:8080/city/v1
 mvn clean install
+java -jar *jar_name*
 
 CLIENT
 npm install in folder cityappclient
