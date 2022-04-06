@@ -52,6 +52,22 @@ class CityAppMvcTest {
 
     @Test
     @WithMockUser(username = "andrei", roles={"ALLOW_VIEW"})
+    public void shouldCorrectlyReturnListOfCitiesV2() throws Exception {
+        mockMvc.perform(get("/citiesV2").contentType(MediaType.APPLICATION_JSON)
+            .param("limit", "2")
+            .param("page", "0"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.total").value(1000))
+            .andExpect(jsonPath("$.cities[0].id").value(1))
+            .andExpect(jsonPath("$.cities[0].name").value("Tokyo"))
+            .andExpect(jsonPath("$.cities[1].id").value(2))
+            .andExpect(jsonPath("$.cities[1].name").value("Jakarta"))
+            .andExpect(jsonPath("$.cities[2].id").doesNotExist())
+            .andReturn();
+    }
+
+    @Test
+    @WithMockUser(username = "andrei", roles={"ALLOW_VIEW"})
     public void shouldCorrectlyReturnListOfCitiesWithTextSearch() throws Exception {
         mockMvc.perform(get("/cities").contentType(MediaType.APPLICATION_JSON)
                         .param("limit", "10")
@@ -66,6 +82,21 @@ class CityAppMvcTest {
     }
 
     @Test
+    @WithMockUser(username = "andrei", roles={"ALLOW_VIEW"})
+    public void shouldCorrectlyReturnListOfCitiesWithTextSearchV2() throws Exception {
+        mockMvc.perform(get("/citiesV2").contentType(MediaType.APPLICATION_JSON)
+            .param("limit", "10")
+            .param("page", "0")
+            .param("searchText", "Tok"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.total").value(1))
+            .andExpect(jsonPath("$.cities[0].id").value(1))
+            .andExpect(jsonPath("$.cities[0].name").value("Tokyo"))
+            .andExpect(jsonPath("$.cities[1].id").doesNotExist())
+            .andReturn();
+    }
+
+    @Test
     @WithMockUser(username = "andrei", roles={"ALLOW_EDIT"})
     public void shouldCorrectlyUpdateCity() throws Exception {
         String body = "{\n" +
@@ -73,7 +104,7 @@ class CityAppMvcTest {
                 "  \"name\": \"Paris12\",\n" +
                 "  \"photo\": \"Paris12\"\n" +
                 "}";
-        mockMvc.perform(MockMvcRequestBuilders.put("/cities/31").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.patch("/cities/31").contentType(MediaType.APPLICATION_JSON)
                         .content(body))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -93,7 +124,7 @@ class CityAppMvcTest {
                 "  \"name\": \"Paris12\",\n" +
                 "  \"photo\": \"Paris12\"\n" +
                 "}";
-        mockMvc.perform(MockMvcRequestBuilders.put("/cities/10000000").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.patch("/cities/10000000").contentType(MediaType.APPLICATION_JSON)
                         .content(body))
                 .andExpect(status().is(404))
                 .andReturn();
@@ -107,7 +138,7 @@ class CityAppMvcTest {
                 "  \"name\": null" +
                 "  \"photo\": null" +
                 "}";
-        mockMvc.perform(MockMvcRequestBuilders.put("/cities/31").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.patch("/cities/31").contentType(MediaType.APPLICATION_JSON)
                         .content(body))
                 .andExpect(status().is(400))
                 .andReturn();

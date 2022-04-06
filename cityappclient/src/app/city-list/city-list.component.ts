@@ -24,7 +24,7 @@ export class CityListComponent implements OnInit {
   }
 
   getDataSearchedByName() {
-    this.cityService.findAllByName(this.offset, this.limit, this.searchText).subscribe(data => {
+    this.cityService.findAllByNameV2(this.page - 1, this.limit, this.searchText).subscribe(data => {
       this.cities = data.cities;
       this.totalItems = data.total;
     });

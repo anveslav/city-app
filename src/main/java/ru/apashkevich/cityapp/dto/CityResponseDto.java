@@ -10,5 +10,5 @@ import java.util.List;
 @Builder
 public class CityResponseDto {
     List<City> cities;
-    Integer total;
+    long total;
 }
